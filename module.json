@@ -1,0 +1,20 @@
+{
+    "name": "steam-sold-wishlist",
+    "fullName": "L.U.M.E.N. steam sold wishlist module",
+    "author": "Elanis",
+    "version": "1.0.0",
+    "dependencies": {},
+    "desktop": {
+        "module": true,
+        "window": false
+    },
+    "mobile": {
+        "module": true,
+        "window": false
+    },
+    "config": {
+        "soldPackages": "object[]",
+        "wishlistApps": "object[]",
+        "COOKIE_FORMAT": "string"
+    }
+}

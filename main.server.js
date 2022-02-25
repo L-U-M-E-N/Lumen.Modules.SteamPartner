@@ -3,6 +3,8 @@ import { QueryPackageSalesForCSV, QueryWishlistActionsForCSV } from './SteamCSV.
 const COOKIE_FORMAT = (runAs) => global.config['steam-sold-wishlist'].COOKIE_FORMAT.replace('${runAs}', runAs);
 
 export default class SteamSoldWishlist {
+	static running = false;
+
 	static init() {
 		SteamSoldWishlist.update();
 
@@ -15,20 +17,28 @@ export default class SteamSoldWishlist {
 	}
 
 	static async update() {
+		if(SteamSoldWishlist.running) {
+			return;
+		}
+		SteamSoldWishlist.running = true;
+
 		log('Updating Steam status ...', 'info');
 
 		try {
 			await SteamSoldWishlist.UpdateSoldAmount();
 		} catch(e) {
 			log(' ' + e.message, 'error');
+			SteamSoldWishlist.running = false;
 			return;
 		}
 		try {
 			await SteamSoldWishlist.UpdateWishlistAmount();
 		} catch(e) {
 			log(' ' + e.message, 'error');
+			SteamSoldWishlist.running = false;
 			return;
 		}
+		SteamSoldWishlist.running = false;
 	}
 
 	static async UpdateSoldAmount() {

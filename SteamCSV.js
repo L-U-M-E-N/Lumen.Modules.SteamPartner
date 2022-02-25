@@ -82,7 +82,7 @@ async function FetchData(url, cookie) {
 
 export async function QueryPackageSalesForCSV({ dateStart = DATE_START, dateEnd = getSafeEndDate(), id, name, cookie }) {
 	return await FetchData(
-		`https://partner.steampowered.com/report_csv.php?file=${name}&params=query=QueryPackageSalesForCSV^pkgID=${id}^dateStart=${dateStart}^dateEnd=${dateEnd}^interpreter=PartnerSalesReportInterpreter`,
+		`https://partner.steampowered.com/report_csv.php?file=${name}&params=query=QueryPackageSalesForCSV^pkgID=${id}^dateStart=${dateStart}^dateEnd=${dateEnd}^HasDivisions=0^interpreter=PartnerSalesReportInterpreter`,
 		cookie
 	);
 }

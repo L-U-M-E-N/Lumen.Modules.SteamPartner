@@ -68,7 +68,12 @@ export default class SteamSoldWishlist {
 					data.bundle_id == line['Bundle(ID#)'] &&
 					data.product_id == line['Product(ID#)'] &&
 					(data.date.getTime() == currentDate || data.date.getTime() == currentDate2) &&
-					data.country_code == line['Country Code']
+					data.country_code == line['Country Code'] &&
+					data.type == line["Type"] &&
+					data.gross_units_sold == line["Gross Units Sold"] &&
+					data.net_units_sold == line["Net Units Sold"] &&
+					data.gross_steam_sale_usd == line["Gross Steam Sales (USD)"] &&
+					data.net_steam_sale_usd == line["Net Steam Sales (USD)"]
 				)) {
 					continue;
 				}

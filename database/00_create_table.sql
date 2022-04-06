@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS public.steam_sold
     chargebacks_returns_usd double precision NOT NULL,
     vat_usd double precision NOT NULL,
     net_steam_sale_usd double precision NOT NULL,
-    tag character varying COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT steam_sold_pkey PRIMARY KEY (date, bundle_id, product_id, country_code)
+    tag character varying COLLATE pg_catalog."default" NOT NULL
 )
 
 TABLESPACE pg_default;

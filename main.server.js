@@ -61,13 +61,12 @@ export default class SteamSoldWishlist {
 			const data = await QueryPackageSalesForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
 			for(const line of data) {
-				const currentDate = (new Date(line['Date'])).getTime() - 2 * 60 * 60 * 1000;
-				const currentDate2 = (new Date(line['Date'])).getTime() - 60 * 60 * 1000;
+				const currentDate = (new Date(line['Date'] + 'T00:00:00.000Z')).getTime();
 
 				if(dbData.find((data) =>
 					data.bundle_id == line['Bundle(ID#)'] &&
 					data.product_id == line['Product(ID#)'] &&
-					(data.date.getTime() == currentDate || data.date.getTime() == currentDate2) &&
+					(data.date.getTime() == currentDate) &&
 					data.country_code == line['Country Code'] &&
 					data.type == line["Type"] &&
 					data.gross_units_sold == line["Gross Units Sold"] &&
@@ -104,11 +103,10 @@ export default class SteamSoldWishlist {
 			const data = await QueryWishlistActionsForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
 			for(const line of data) {
-				const currentDate = (new Date(line['DateLocal'])).getTime() - 2 * 60 * 60 * 1000;
-				const currentDate2 = (new Date(line['DateLocal'])).getTime() - 60 * 60 * 1000;
+				const currentDate = (new Date(line['Date'] + 'T00:00:00.000Z')).getTime();
 
 				if(dbData.find((data) =>
-					(data.datelocal.getTime() == currentDate || data.datelocal.getTime() == currentDate2) &&
+					data.datelocal.getTime() == currentDate &&
 					data.game == line['Game']
 				)) {
 					continue;

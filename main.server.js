@@ -103,7 +103,7 @@ export default class SteamSoldWishlist {
 			const data = await QueryWishlistActionsForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
 			for(const line of data) {
-				const currentDate = (new Date(line['Date'] + 'T00:00:00.000Z')).getTime();
+				const currentDate = (new Date(line['DateLocal'] + 'T00:00:00.000Z')).getTime();
 
 				if(dbData.find((data) =>
 					data.datelocal.getTime() == currentDate &&

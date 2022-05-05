@@ -1,6 +1,6 @@
 import { QueryPackageSalesForCSV, QueryWishlistActionsForCSV } from './SteamCSV.js';
 
-const COOKIE_FORMAT = (runAs) => global.config['steam-sold-wishlist'].COOKIE_FORMAT.replace('${runAs}', runAs);
+const COOKIE_FORMAT = (runAs) => config.COOKIE_FORMAT.replace('${runAs}', runAs);
 
 export default class SteamSoldWishlist {
 	static running = false;
@@ -57,7 +57,7 @@ export default class SteamSoldWishlist {
 
 		const dbData = (await Database.execQuery('SELECT * FROM steam_sold')).rows;
 
-		for(const currentPackage of global.config['steam-sold-wishlist'].soldPackages) {
+		for(const currentPackage of config.soldPackages) {
 			const data = await QueryPackageSalesForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
 			for(const line of data) {
@@ -99,7 +99,7 @@ export default class SteamSoldWishlist {
 
 		const dbData = (await Database.execQuery('SELECT * FROM steam_wishlists')).rows;
 
-		for(const currentPackage of global.config['steam-sold-wishlist'].wishlistApps) {
+		for(const currentPackage of config.wishlistApps) {
 			const data = await QueryWishlistActionsForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
 			for(const line of data) {

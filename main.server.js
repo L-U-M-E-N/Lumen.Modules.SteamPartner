@@ -8,8 +8,16 @@ export default class SteamSoldWishlist {
 	static init() {
 		SteamSoldWishlist.update();
 
-		clearInterval(SteamSoldWishlist.interval);
-		SteamSoldWishlist.interval = setInterval(SteamSoldWishlist.update, 3 * 60 * 60 * 1000); // Update every 3 hours
+		// Update every day at 12 PM utc
+		const nextUpdate = new Date();
+		nextUpdate.setUTCHours(12,5,0,0);
+		clearTimeout(SteamSoldWishlist.timeout);
+		SteamSoldWishlist.timeout = setTimeout(() => {
+			SteamSoldWishlist.update();
+
+			clearInterval(SteamSoldWishlist.interval);
+			SteamSoldWishlist.interval = setInterval(SteamSoldWishlist.update, 24 * 60 * 60 * 1000);
+		}, Date.now() - nextUpdate.getTime());
 	}
 
 	static close() {

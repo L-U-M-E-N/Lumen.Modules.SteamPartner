@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const DATE_START = '2000-01-01';
 function getSafeEndDate() {
 	return (new Date(Date.now() - 1.5 * 24 * 60 * 60 * 1000)).toISOString().slice(0,10);

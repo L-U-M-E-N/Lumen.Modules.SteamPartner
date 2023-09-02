@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.3.6"
+      "version": "10.0.3"
     },
     {
       "type": "datasource",
@@ -33,6 +33,12 @@
       "type": "panel",
       "id": "timeseries",
       "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "xychart",
+      "name": "XY Chart",
       "version": ""
     }
   ],
@@ -127,7 +133,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 16,
+        "h": 14,
         "w": 12,
         "x": 0,
         "y": 0
@@ -152,6 +158,7 @@
             "type": "postgres",
             "uid": "${DS_LUMEN}"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [
             {
@@ -193,6 +200,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "steam_wishlists",
           "timeColumn": "datelocal",
           "timeColumnType": "date",
@@ -271,7 +295,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 16,
+        "h": 14,
         "w": 12,
         "x": 12,
         "y": 0
@@ -296,6 +320,7 @@
             "type": "postgres",
             "uid": "${DS_LUMEN}"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -312,6 +337,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "focus_stats",
           "timeColumn": "date",
           "timeColumnType": "timestamp",
@@ -375,149 +417,6 @@
                 "value": null
               },
               {
-                "color": "rgb(87, 168, 242)",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 0,
-        "y": 16
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "${DS_LUMEN}"
-          },
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal)\n  AND game = 'Extortion'\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "adds"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "steam_wishlists",
-          "timeColumn": "datelocal",
-          "timeColumnType": "date",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Extortion",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "${DS_LUMEN}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
                 "color": "rgb(237, 215, 80)",
                 "value": 80
               }
@@ -527,10 +426,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 6,
-        "y": 16
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 14
       },
       "id": 7,
       "options": {
@@ -547,13 +446,16 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.0.3",
+      "repeat": "games",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
             "uid": "${DS_LUMEN}"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [
             {
@@ -566,7 +468,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal)\n  AND game = 'Alchemistry'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal)\n  AND game = $games \nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -630,6 +532,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "steam_wishlists",
           "timeColumn": "datelocal",
           "timeColumnType": "date",
@@ -642,7 +561,7 @@
           ]
         }
       ],
-      "title": "Alchemistry",
+      "title": "$games (Wishlists)",
       "type": "stat"
     },
     {
@@ -670,10 +589,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 12,
-        "y": 16
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 17
       },
       "id": 8,
       "options": {
@@ -690,13 +609,16 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.0.3",
+      "repeat": "games",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
             "uid": "${DS_LUMEN}"
           },
+          "editorMode": "code",
           "format": "time_series",
           "group": [
             {
@@ -709,7 +631,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n  $__timeFilter(date)\n  AND game = 'Extortion'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n  $__timeFilter(date)\n  AND game = $games\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -773,6 +695,23 @@
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "steam_wishlists",
           "timeColumn": "datelocal",
           "timeColumnType": "date",
@@ -785,7 +724,7 @@
           ]
         }
       ],
-      "title": "Extortion (Copies)",
+      "title": "$games (Copies)",
       "type": "stat"
     },
     {
@@ -795,7 +734,33 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "pointSize": {
+              "fixed": 1
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "show": "lines"
+          },
+          "links": [],
           "mappings": [],
+          "min": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -804,55 +769,84 @@
                 "value": null
               },
               {
-                "color": "rgb(87, 168, 242)",
+                "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 16
+        "h": 19,
+        "w": 12,
+        "x": 0,
+        "y": 20
       },
-      "id": 9,
+      "id": 24,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
+        "dims": {
+          "frame": 0
         },
-        "textMode": "auto"
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "series": [
+          {
+            "name": "Alchemistry",
+            "pointColor": {},
+            "x": "day Alchemistry",
+            "y": "value Alchemistry"
+          },
+          {
+            "name": "Extortion",
+            "pointColor": {},
+            "x": "day Extortion",
+            "y": "value Extortion"
+          },
+          {
+            "name": "Manufactur'inc",
+            "pointColor": {},
+            "x": "day Manufactur’ inc.",
+            "y": "value Manufactur’ inc."
+          }
+        ],
+        "seriesMapping": "manual",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.0.3",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
             "uid": "${DS_LUMEN}"
           },
-          "format": "time_series",
+          "editorMode": "code",
+          "format": "table",
           "group": [
             {
               "params": [
-                "$__interval",
-                "none"
+                "game"
               ],
-              "type": "time"
+              "type": "column"
+            },
+            {
+              "params": [
+                "datelocal"
+              ],
+              "type": "column"
             }
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n  $__timeFilter(date)\n  AND game = 'Alchemistry'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  (datelocal - (SELECT MIN(datelocal) FROM steam_wishlists WHERE game = currquery.game AND adds != 0)) AS \"day\",\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists as subquery WHERE subquery.datelocal <= currquery.datelocal and subquery.game = currquery.game) as \"value\",\n  game as metric\nFROM steam_wishlists as currquery\nWHERE adds != 0 OR deletes != 0\nORDER BY 1 ASC, 3 ASC",
           "refId": "A",
           "select": [
             [
@@ -864,58 +858,35 @@
               },
               {
                 "params": [
-                  "sum"
+                  "avg"
                 ],
                 "type": "aggregate"
               },
               {
                 "params": [
-                  "sum"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "deletes"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "sum"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "deletes"
+                  "adds"
                 ],
                 "type": "alias"
               }
             ]
           ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
           "table": "steam_wishlists",
           "timeColumn": "datelocal",
           "timeColumnType": "date",
@@ -928,8 +899,203 @@
           ]
         }
       ],
-      "title": "Alchemistry (Copies)",
-      "type": "stat"
+      "title": "Active Wishlists (not deleted, not converted)",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [
+              "metric"
+            ]
+          }
+        }
+      ],
+      "type": "xychart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "pointSize": {
+              "fixed": 1
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "show": "lines"
+          },
+          "links": [],
+          "mappings": [],
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "id": 29,
+      "options": {
+        "dims": {
+          "frame": 0
+        },
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "series": [
+          {
+            "name": "Alchemistry",
+            "pointColor": {},
+            "x": "day Alchemistry",
+            "y": "value Alchemistry"
+          },
+          {
+            "name": "Extortion",
+            "pointColor": {},
+            "x": "day Extortion",
+            "y": "value Extortion"
+          },
+          {
+            "name": "Manufactur'inc",
+            "pointColor": {},
+            "x": "day Manufactur’ inc.",
+            "y": "value Manufactur’ inc."
+          }
+        ],
+        "seriesMapping": "manual",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "${DS_LUMEN}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [
+            {
+              "params": [
+                "game"
+              ],
+              "type": "column"
+            },
+            {
+              "params": [
+                "datelocal"
+              ],
+              "type": "column"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT DISTINCT\n  (date - (SELECT MIN(date) FROM steam_sold WHERE game = currquery.game AND net_units_sold != 0)) AS \"day\",\n  (SELECT SUM(net_units_sold) FROM steam_sold as subquery WHERE subquery.date <= currquery.date and subquery.game = currquery.game) as \"value\",\n  game as metric\nFROM steam_sold as currquery\nWHERE net_units_sold != 0\nORDER BY 1 ASC, 3 ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "steam_wishlists",
+          "timeColumn": "datelocal",
+          "timeColumnType": "date",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Copies sold",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [
+              "metric"
+            ]
+          }
+        }
+      ],
+      "type": "xychart"
     },
     {
       "datasource": {
@@ -991,10 +1157,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 23,
+        "h": 22,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 39
       },
       "id": 11,
       "options": {
@@ -1046,13 +1212,361 @@
       ],
       "title": "% returns",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 61
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.15",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "${DS_LUMEN}"
+          },
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  a.date as \"time\",\r\n  SUM(b.gross_steam_sale_usd) AS \"Gross ($)\",\r\n  SUM(b.net_steam_sale_usd) AS \"Net ($)\"\r\nFROM (SELECT distinct date FROM steam_sold) a\r\nINNER JOIN steam_sold b ON b.date BETWEEN (a.date - interval '364 days') AND a.date\r\nWHERE $__timeFilter(a.date) \r\nGROUP BY 1\r\nORDER BY 1 ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "gross_steam_sale_usd"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "sum"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "gross_steam_sale_usd"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "net_steam_sale_usd"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "sum"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "net_steam_sale_usd"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "steam_sold",
+          "timeColumn": "date",
+          "timeColumnType": "date",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "value",
+                "=",
+                "value"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Revenues - 1y",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 71
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.15",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "${DS_LUMEN}"
+          },
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  a.date as \"time\",\r\n  SUM(b.gross_units_sold) AS \"Gross Units\",\r\n  SUM(b.net_units_sold) AS \"Net Units\"\r\nFROM (SELECT distinct date FROM steam_sold) a\r\nINNER JOIN steam_sold b ON b.date BETWEEN (a.date - interval '364 days') AND a.date\r\nGROUP BY 1\r\nORDER BY 1 ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "gross_steam_sale_usd"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "sum"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "gross_steam_sale_usd"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "net_steam_sale_usd"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "sum"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "net_steam_sale_usd"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "steam_sold",
+          "timeColumn": "date",
+          "timeColumnType": "date",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "name": "",
+              "params": [
+                "value",
+                "=",
+                "value"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Copies - 1y",
+      "type": "timeseries"
     }
   ],
-  "schemaVersion": 37,
+  "refresh": "",
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "postgres",
+          "uid": "${DS_LUMEN}"
+        },
+        "definition": "SELECT DISTINCT game FROM steam_wishlists",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Games",
+        "multi": true,
+        "name": "games",
+        "options": [],
+        "query": "SELECT DISTINCT game FROM steam_wishlists",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "2020-05-14T22:00:00.000Z",
@@ -1062,6 +1576,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 1,
+  "version": 8,
   "weekStart": ""
 }

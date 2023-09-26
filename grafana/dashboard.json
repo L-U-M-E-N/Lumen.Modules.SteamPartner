@@ -134,7 +134,7 @@
       },
       "gridPos": {
         "h": 14,
-        "w": 12,
+        "w": 8,
         "x": 0,
         "y": 0
       },
@@ -257,6 +257,166 @@
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "${DS_LUMEN}"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "game"
+              ],
+              "type": "column"
+            },
+            {
+              "params": [
+                "datelocal"
+              ],
+              "type": "column"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  datelocal AS \"time\",\n  amount as \"value\",\n  game as \"metric\"\nFROM steam_followers as currquery\nWHERE\n  $__timeFilter(currquery.datelocal)\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "steam_wishlists",
+          "timeColumn": "datelocal",
+          "timeColumnType": "date",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Followers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
             },
@@ -296,8 +456,8 @@
       },
       "gridPos": {
         "h": 14,
-        "w": 12,
-        "x": 12,
+        "w": 8,
+        "x": 16,
         "y": 0
       },
       "id": 4,
@@ -780,7 +940,7 @@
       },
       "gridPos": {
         "h": 19,
-        "w": 12,
+        "w": 8,
         "x": 0,
         "y": 20
       },
@@ -965,8 +1125,193 @@
       },
       "gridPos": {
         "h": 19,
-        "w": 12,
-        "x": 12,
+        "w": 8,
+        "x": 8,
+        "y": 20
+      },
+      "id": 35,
+      "options": {
+        "dims": {
+          "frame": 0
+        },
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "series": [
+          {
+            "name": "Alchemistry",
+            "pointColor": {},
+            "x": "day Alchemistry",
+            "y": "value Alchemistry"
+          },
+          {
+            "name": "Extortion",
+            "pointColor": {},
+            "x": "day Extortion",
+            "y": "value Extortion"
+          },
+          {
+            "name": "Manufactur'inc",
+            "pointColor": {},
+            "x": "day Manufactur’ inc.",
+            "y": "value Manufactur’ inc."
+          }
+        ],
+        "seriesMapping": "manual",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "${DS_LUMEN}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [
+            {
+              "params": [
+                "game"
+              ],
+              "type": "column"
+            },
+            {
+              "params": [
+                "datelocal"
+              ],
+              "type": "column"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  (datelocal - (SELECT MIN(datelocal) FROM steam_followers WHERE game = currquery.game)) AS \"day\",\n  amount as \"value\",\n  game as metric\nFROM steam_followers as currquery\nORDER BY 1 ASC, 3 ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "adds"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "steam_wishlists",
+          "timeColumn": "datelocal",
+          "timeColumnType": "date",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Followers",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [
+              "metric"
+            ]
+          }
+        }
+      ],
+      "type": "xychart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "pointSize": {
+              "fixed": 1
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "show": "lines"
+          },
+          "links": [],
+          "mappings": [],
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 8,
+        "x": 16,
         "y": 20
       },
       "id": 29,
@@ -1258,8 +1603,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1421,8 +1765,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1576,6 +1919,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 8,
+  "version": 10,
   "weekStart": ""
 }

@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.0.3"
+      "version": "10.1.4"
     },
     {
       "type": "datasource",
@@ -96,6 +96,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 6,
@@ -176,7 +177,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  datelocal AS \"time\",\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists as subquery WHERE subquery.datelocal <= currquery.datelocal and subquery.game = currquery.game) as \"value\",\n  game as \"metric\"\nFROM steam_wishlists as currquery\nWHERE\n  $__timeFilter(currquery.datelocal)\nORDER BY 1",
+          "rawSql": "SELECT\n  datelocal AS \"time\",\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) - SUM(gifts) FROM steam_wishlists as subquery WHERE subquery.datelocal <= currquery.datelocal and subquery.game = currquery.game) as \"value\",\n  game as \"metric\"\nFROM steam_wishlists as currquery\nWHERE\n  $__timeFilter(currquery.datelocal)\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -256,6 +257,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 6,
@@ -416,6 +418,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
@@ -606,7 +609,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.1.4",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -628,7 +631,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal)\n  AND game = $games \nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations) - SUM(gifts)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal)\n  AND game = $games \nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -769,7 +772,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "10.1.4",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -1466,6 +1469,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1582,6 +1586,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1603,7 +1608,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1744,6 +1750,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1765,7 +1772,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1919,6 +1927,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 10,
+  "version": 3,
   "weekStart": ""
 }

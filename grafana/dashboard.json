@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.1.4"
+      "version": "10.2.0"
     },
     {
       "type": "datasource",
@@ -95,6 +95,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -256,6 +257,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -417,6 +419,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -621,7 +624,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -784,7 +787,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -913,6 +916,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1098,6 +1102,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1283,6 +1288,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1468,6 +1474,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1585,6 +1592,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1749,6 +1757,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2020,7 +2029,7 @@
           "zoom": 1.69
         }
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -2030,7 +2039,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT SUM(net_units_sold), country FROM steam_sold GROUP BY country",
+          "rawSql": "SELECT SUM(net_units_sold), REPLACE(country, 'Russian Federation', 'Russia') as country FROM steam_sold GROUP BY country",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2114,7 +2123,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -2151,7 +2160,6 @@
   ],
   "refresh": "",
   "schemaVersion": 38,
-  "style": "dark",
   "tags": [],
   "templating": {
     "list": [
@@ -2185,6 +2193,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 9,
+  "version": 2,
   "weekStart": ""
 }

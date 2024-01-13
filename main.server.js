@@ -1,4 +1,4 @@
-import { QueryPackageSalesForCSV, QueryWishlistActionsForCSV } from './SteamCSV.js';
+import { QueryPackageSalesForCSV, QueryWishlistActionsForCSV, QueryFollowers } from './SteamCSV.js';
 
 const COOKIE_FORMAT = (runAs) => config.COOKIE_FORMAT.replace('${runAs}', runAs);
 
@@ -36,15 +36,16 @@ export default class SteamSoldWishlist {
 			await SteamSoldWishlist.UpdateSoldAmount();
 		} catch(e) {
 			log(' ' + e.message, 'error');
-			SteamSoldWishlist.running = false;
-			return;
 		}
 		try {
 			await SteamSoldWishlist.UpdateWishlistAmount();
 		} catch(e) {
 			log(' ' + e.message, 'error');
-			SteamSoldWishlist.running = false;
-			return;
+		}
+		try {
+			await SteamSoldWishlist.UpdateFollowers();
+		} catch(e) {
+			log(' ' + e.message, 'error');
 		}
 		SteamSoldWishlist.running = false;
 	}
@@ -63,38 +64,54 @@ export default class SteamSoldWishlist {
 			)
 		`;
 
-		const dbData = (await Database.execQuery('SELECT * FROM steam_sold')).rows;
+		await Database.execQuery('BEGIN');
 
-		for(const currentPackage of config.soldPackages) {
-			const data = await QueryPackageSalesForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
+		await Database.execQuery(`
+			DELETE FROM steam_sold
+			WHERE date > (
+				SELECT MAX(date) FROM steam_sold
+			) - interval '35d'
+		`);
 
-			for(const line of data) {
-				const currentDate = (new Date(line['Date'] + 'T00:00:00.000Z')).getTime();
+		try {
+			const dbData = (await Database.execQuery('SELECT * FROM steam_sold')).rows;
 
-				if(dbData.find((data) =>
-					data.bundle_id == line['Bundle(ID#)'] &&
-					data.product_id == line['Product(ID#)'] &&
-					(data.date.getTime() == currentDate) &&
-					data.country_code == line['Country Code'] &&
-					data.type == line["Type"] &&
-					data.gross_units_sold == line["Gross Units Sold"] &&
-					data.net_units_sold == line["Net Units Sold"] &&
-					data.gross_steam_sale_usd == line["Gross Steam Sales (USD)"] &&
-					data.net_steam_sale_usd == line["Net Steam Sales (USD)"]
-				)) {
-					continue;
-				}
+			for(const currentPackage of config.soldPackages) {
+				const data = await QueryPackageSalesForCSV({ ...currentPackage, cookie: COOKIE_FORMAT(currentPackage.runAs) });
 
-				try {
-					await Database.execQuery(
-						query,
-						Object.values(line)
-					);
-				} catch(e) {
-					// Do nothing
+				for(const line of data) {
+					const currentDate = (new Date(line['Date'] + 'T00:00:00.000Z')).getTime();
+
+					if(dbData.find((data) =>
+						data.bundle_id == line['Bundle(ID#)'] &&
+						data.product_id == line['Product(ID#)'] &&
+						(data.date.getTime() == currentDate) &&
+						data.country_code == line['Country Code'] &&
+						data.type == line["Type"] &&
+						data.gross_units_sold == line["Gross Units Sold"] &&
+						data.net_units_sold == line["Net Units Sold"] &&
+						data.gross_steam_sale_usd == line["Gross Steam Sales (USD)"] &&
+						data.net_steam_sale_usd == line["Net Steam Sales (USD)"]
+					)) {
+						continue;
+					}
+
+					try {
+						await Database.execQuery(
+							query,
+							Object.values(line)
+						);
+					} catch(e) {
+						log(' ' + e.message, 'error');
+					}
 				}
 			}
+		} catch(e) {
+			await Database.execQuery('ROLLBACK');
+			throw e;
 		}
+
+		await Database.execQuery('COMMIT');
 
 		log('Saved Steam sold status', 'info');
 	}
@@ -126,12 +143,31 @@ export default class SteamSoldWishlist {
 						Object.values(line)
 					);
 				} catch(e) {
-					// Do nothing
+					log(' ' + e.message, 'error');
 				}
 			}
 		}
 
 		log('Saved Steam wishlist status', 'info');
+	}
+
+	static async UpdateFollowers() {
+		const query = 'INSERT INTO public.steam_followers(datelocal, game, amount) VALUES ($1, $2, $3)'
+
+		for(const currentPackage of config.wishlistApps) {
+			const amount = await QueryFollowers({ id: currentPackage.id });
+
+			try {
+				await Database.execQuery(
+					query,
+					[new Date(), currentPackage.name, amount]
+				);
+			} catch(e) {
+				log(' ' + e.message, 'error');
+			}
+		}
+
+		log('Saved Steam followers status', 'info');
 	}
 }
 

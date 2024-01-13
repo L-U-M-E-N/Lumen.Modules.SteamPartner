@@ -91,3 +91,24 @@ export async function QueryWishlistActionsForCSV({ dateStart = DATE_START, dateE
 		cookie
 	);
 }
+
+export async function QueryFollowers({ id }) {
+	const res = await fetch(`https://steamcommunity.com/games/${id}/memberslistxml/?xml=1`);
+	const textBody = await res.text();
+
+	// We can't parse XML in NodeJS without modules ? Okay, let's do it manually !
+
+	// 1. Take groupDetails
+	const relevantPart = textBody.split('<groupDetails>')[1].split('</groupDetails>')[0];
+
+	// 2. Check Invalid format
+	if(!relevantPart.includes('<memberCount>')) {
+		throw new Error('Invalid XML !');
+	}
+
+	// 3. Extract data
+	return parseInt( 
+		relevantPart.split('<memberCount>')[1].split('</memberCount>')[0],
+		10
+	);
+}

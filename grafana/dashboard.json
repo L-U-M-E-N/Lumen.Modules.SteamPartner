@@ -5,7 +5,7 @@
       "label": "Lumen",
       "description": "",
       "type": "datasource",
-      "pluginId": "postgres",
+      "pluginId": "grafana-postgresql-datasource",
       "pluginName": "PostgreSQL"
     }
   ],
@@ -21,11 +21,11 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.2.2"
+      "version": "10.4.1"
     },
     {
       "type": "datasource",
-      "id": "postgres",
+      "id": "grafana-postgresql-datasource",
       "name": "PostgreSQL",
       "version": "1.0.0"
     },
@@ -86,7 +86,7 @@
   "panels": [
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -105,13 +105,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Wishlists (Total)",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -130,13 +130,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Wishlists (Current Period)",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -155,13 +155,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Copies (Total)",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -180,13 +180,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Copies (Current Period)",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -205,13 +205,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Refund % (Total, Graph show trend)",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "gridPos": {
@@ -230,13 +230,13 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "title": "Followers",
       "type": "text"
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -356,11 +356,11 @@
           "zoom": 0.86
         }
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -399,7 +399,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -444,16 +444,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -567,7 +568,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -612,16 +613,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -735,7 +737,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -776,16 +778,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -899,7 +902,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -940,16 +943,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -1063,7 +1067,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -1104,16 +1108,17 @@
           "fields": "/^value$/",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -1227,7 +1232,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -1268,16 +1273,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -1391,7 +1397,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -1520,7 +1526,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -1599,7 +1605,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -1728,7 +1734,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -1807,7 +1813,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -1983,7 +1989,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2033,7 +2039,7 @@
         },
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2083,7 +2089,7 @@
         },
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2116,7 +2122,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -2128,7 +2134,6 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
             "axisPlacement": "auto",
             "hideFrom": {
               "legend": false,
@@ -2164,7 +2169,32 @@
           },
           "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "day"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Day"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Active Wishlists"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -2213,7 +2243,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2302,7 +2332,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -2350,7 +2380,32 @@
           },
           "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "day"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Day"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Followers"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -2399,7 +2454,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2488,7 +2543,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -2536,7 +2591,32 @@
           },
           "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "day"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Day"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Net copies"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -2585,7 +2665,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "editorMode": "code",
@@ -2674,7 +2754,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -2720,7 +2800,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2755,7 +2836,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "format": "time_series",
@@ -2791,7 +2872,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -2870,7 +2951,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "format": "time_series",
@@ -2955,7 +3036,7 @@
     },
     {
       "datasource": {
-        "type": "postgres",
+        "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
       },
       "fieldConfig": {
@@ -3034,7 +3115,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "postgres",
+            "type": "grafana-postgresql-datasource",
             "uid": "${DS_LUMEN}"
           },
           "format": "time_series",
@@ -3119,14 +3200,14 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {},
         "datasource": {
-          "type": "postgres",
+          "type": "grafana-postgresql-datasource",
           "uid": "${DS_LUMEN}"
         },
         "definition": "SELECT DISTINCT game FROM steam_wishlists",
@@ -3153,6 +3234,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 7,
+  "version": 2,
   "weekStart": ""
 }

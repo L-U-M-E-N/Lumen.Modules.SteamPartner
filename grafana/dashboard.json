@@ -13,6 +13,12 @@
   "__requires": [
     {
       "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "geomap",
       "name": "Geomap",
       "version": ""
@@ -21,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.4.1"
+      "version": "11.1.0"
     },
     {
       "type": "datasource",
@@ -85,6 +91,19 @@
   "liveNow": false,
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 132,
+      "panels": [],
+      "title": "Global data",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
@@ -93,7 +112,7 @@
         "h": 1,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 57,
       "options": {
@@ -105,7 +124,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Wishlists (Total)",
       "type": "text"
     },
@@ -118,7 +137,7 @@
         "h": 1,
         "w": 3,
         "x": 3,
-        "y": 0
+        "y": 1
       },
       "id": 58,
       "options": {
@@ -130,7 +149,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Wishlists (Current Period)",
       "type": "text"
     },
@@ -143,7 +162,7 @@
         "h": 1,
         "w": 3,
         "x": 6,
-        "y": 0
+        "y": 1
       },
       "id": 59,
       "options": {
@@ -155,7 +174,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Copies (Total)",
       "type": "text"
     },
@@ -168,7 +187,7 @@
         "h": 1,
         "w": 3,
         "x": 9,
-        "y": 0
+        "y": 1
       },
       "id": 66,
       "options": {
@@ -180,7 +199,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Copies (Current Period)",
       "type": "text"
     },
@@ -193,7 +212,7 @@
         "h": 1,
         "w": 3,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "id": 76,
       "options": {
@@ -205,7 +224,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Refund % (Total, Graph show trend)",
       "type": "text"
     },
@@ -218,7 +237,7 @@
         "h": 1,
         "w": 3,
         "x": 15,
-        "y": 0
+        "y": 1
       },
       "id": 88,
       "options": {
@@ -230,7 +249,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "title": "Followers",
       "type": "text"
     },
@@ -272,7 +291,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 0
+        "y": 1
       },
       "id": 40,
       "options": {
@@ -356,7 +375,7 @@
           "zoom": 0.86
         }
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "targets": [
         {
           "datasource": {
@@ -429,7 +448,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 1
+        "y": 2
       },
       "id": 7,
       "options": {
@@ -437,6 +456,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "sum"
@@ -448,7 +468,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -598,7 +618,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 1
+        "y": 2
       },
       "id": 50,
       "options": {
@@ -606,6 +626,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "sum"
@@ -617,7 +638,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -763,7 +784,7 @@
         "h": 3,
         "w": 3,
         "x": 6,
-        "y": 1
+        "y": 2
       },
       "id": 8,
       "options": {
@@ -771,6 +792,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "sum"
@@ -782,7 +804,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -928,7 +950,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 1
+        "y": 2
       },
       "id": 67,
       "options": {
@@ -936,6 +958,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "sum"
@@ -947,7 +970,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1093,7 +1116,7 @@
         "h": 3,
         "w": 3,
         "x": 12,
-        "y": 1
+        "y": 2
       },
       "id": 77,
       "options": {
@@ -1101,6 +1124,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "last"
@@ -1112,7 +1136,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1258,7 +1282,7 @@
         "h": 3,
         "w": 3,
         "x": 15,
-        "y": 1
+        "y": 2
       },
       "id": 89,
       "options": {
@@ -1266,6 +1290,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "last"
@@ -1277,7 +1302,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.1",
+      "pluginVersion": "11.1.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1396,6 +1421,348 @@
       "type": "stat"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 117,
+      "panels": [],
+      "title": "Wishlist status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "deleted"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "added"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "active"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      "id": 102,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "repeat": "games",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_LUMEN}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  datelocal,\r\n  (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n  (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\nFROM steam_wishlists \r\nWHERE game = $games AND\r\n  $__timeFilter(datelocal)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "steam_wishlists"
+        }
+      ],
+      "title": "$games - Wishlist status",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_LUMEN}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "deleted"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "added"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "active"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      "id": 192,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "percent",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "repeat": "games",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_LUMEN}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  datelocal,\r\n  (100 * deleted / (deleted + active + purchased)) as deleted,\r\n  (100 * active / (deleted + active + purchased)) as active,\r\n  (100 * purchased / (deleted + active + purchased)) as purchased\r\nFROM (\r\n  SELECT \r\n    datelocal,\r\n    (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n    (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n    (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\n  FROM steam_wishlists \r\n  WHERE game = $games AND\r\n    $__timeFilter(datelocal)\r\n) a\r\nWHERE (deleted + active + purchased) > 0",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "steam_wishlists"
+        }
+      ],
+      "title": "$games - Wishlist status",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 147,
+      "panels": [],
+      "title": "Current period details",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
@@ -1444,8 +1811,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1507,7 +1873,7 @@
         "h": 12,
         "w": 8,
         "x": 0,
-        "y": 10
+        "y": 29
       },
       "id": 2,
       "options": {
@@ -1652,8 +2018,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1715,7 +2080,7 @@
         "h": 12,
         "w": 8,
         "x": 8,
-        "y": 10
+        "y": 29
       },
       "id": 34,
       "options": {
@@ -1862,8 +2227,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1970,7 +2334,7 @@
         "h": 12,
         "w": 8,
         "x": 16,
-        "y": 10
+        "y": 29
       },
       "id": 4,
       "options": {
@@ -2121,6 +2485,19 @@
       "type": "timeseries"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 162,
+      "panels": [],
+      "title": "Stats from day 0 (public page or release date)",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
@@ -2134,6 +2511,7 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
+            "axisLabel": "",
             "axisPlacement": "auto",
             "hideFrom": {
               "legend": false,
@@ -2158,8 +2536,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2200,7 +2577,7 @@
         "h": 12,
         "w": 8,
         "x": 0,
-        "y": 22
+        "y": 42
       },
       "id": 24,
       "options": {
@@ -2369,8 +2746,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2411,7 +2787,7 @@
         "h": 12,
         "w": 8,
         "x": 8,
-        "y": 22
+        "y": 42
       },
       "id": 35,
       "options": {
@@ -2580,8 +2956,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2622,7 +2997,7 @@
         "h": 12,
         "w": 8,
         "x": 16,
-        "y": 22
+        "y": 42
       },
       "id": 29,
       "options": {
@@ -2753,6 +3128,19 @@
       "type": "xychart"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 177,
+      "panels": [],
+      "title": "Other stats (refund, global revenues)",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_LUMEN}"
@@ -2800,8 +3188,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2817,7 +3204,7 @@
         "h": 22,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 55
       },
       "id": 11,
       "options": {
@@ -2932,7 +3319,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 77
       },
       "id": 13,
       "options": {
@@ -3096,7 +3483,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 87
       },
       "id": 14,
       "options": {
@@ -3234,6 +3621,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 2,
+  "version": 11,
   "weekStart": ""
 }

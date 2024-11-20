@@ -27,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.1.0"
+      "version": "11.3.0"
     },
     {
       "type": "datasource",
@@ -88,7 +88,6 @@
   "graphTooltip": 0,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -104,10 +103,6 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -124,15 +119,11 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Wishlists (Total)",
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -149,15 +140,11 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Wishlists (Current Period)",
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -174,15 +161,11 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Copies (Total)",
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -199,15 +182,11 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Copies (Current Period)",
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -224,15 +203,11 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Refund % (Total, Graph show trend)",
       "type": "text"
     },
     {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_LUMEN}"
-      },
       "gridPos": {
         "h": 1,
         "w": 3,
@@ -249,7 +224,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "title": "Followers",
       "type": "text"
     },
@@ -375,7 +350,7 @@
           "zoom": 0.86
         }
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -468,7 +443,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -490,7 +465,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations) - SUM(gifts)\nFROM steam_wishlists\nWHERE\n  game = $games \nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations) - SUM(gifts)\nFROM steam_wishlists\nWHERE\n  game = '$games'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -638,7 +613,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -660,7 +635,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations) - SUM(gifts)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal) AND\n  game = $games \nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(datelocal,$__interval),\n  sum(adds) - sum(deletes) - SUM(purchases_and_activations) - SUM(gifts)\nFROM steam_wishlists\nWHERE\n  $__timeFilter(datelocal) AND\n  game = '$games'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -804,7 +779,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -826,7 +801,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n   game = $games\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n   game = '$games'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -970,7 +945,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -992,7 +967,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n  $__timeFilter(date) AND \n   game = $games\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(date, $__interval),\n  sum(net_units_sold)\nFROM steam_sold\nWHERE\n  $__timeFilter(date) AND \n   game = '$games'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1137,7 +1112,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1159,7 +1134,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  date AS \"time\",\n  (SELECT 100.0 * SUM(chargebacks_returns) / SUM(gross_units_sold) FROM steam_sold as subquery WHERE subquery.date <= currquery.date and subquery.game = currquery.game) as \"value\"\nFROM steam_sold as currquery\nWHERE\n  game = $games\nORDER BY 1",
+          "rawSql": "SELECT\n  date AS \"time\",\n  (SELECT 100.0 * SUM(chargebacks_returns) / SUM(gross_units_sold) FROM steam_sold as subquery WHERE subquery.date <= currquery.date and subquery.game = currquery.game) as \"value\"\nFROM steam_sold as currquery\nWHERE\n  game = '$games'\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1303,7 +1278,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.1.0",
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1325,7 +1300,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  datelocal as time,\n  amount\nFROM steam_followers\nWHERE game = $games\nORDER BY 1\n  ",
+          "rawSql": "SELECT\n  datelocal as time,\n  amount\nFROM steam_followers\nWHERE game = '$games'\nORDER BY 1\n  ",
           "refId": "A",
           "select": [
             [
@@ -1530,7 +1505,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 24,
         "x": 0,
         "y": 12
       },
@@ -1556,6 +1531,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 100
       },
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -1567,7 +1543,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n  datelocal,\r\n  (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n  (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\nFROM steam_wishlists \r\nWHERE game = $games AND\r\n  $__timeFilter(datelocal)",
+          "rawSql": "SELECT \r\n  datelocal,\r\n  (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n  (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n  (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\nFROM steam_wishlists \r\nWHERE game = '$games' AND\r\n  $__timeFilter(datelocal)",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1688,7 +1664,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 24,
         "x": 0,
         "y": 20
       },
@@ -1714,6 +1690,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 100
       },
+      "pluginVersion": "11.3.0",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -1725,7 +1702,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n  datelocal,\r\n  (100 * deleted / (deleted + active + purchased)) as deleted,\r\n  (100 * active / (deleted + active + purchased)) as active,\r\n  (100 * purchased / (deleted + active + purchased)) as purchased\r\nFROM (\r\n  SELECT \r\n    datelocal,\r\n    (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n    (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n    (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\n  FROM steam_wishlists \r\n  WHERE game = $games AND\r\n    $__timeFilter(datelocal)\r\n) a\r\nWHERE (deleted + active + purchased) > 0",
+          "rawSql": "SELECT \r\n  datelocal,\r\n  (100 * deleted / (deleted + active + purchased)) as deleted,\r\n  (100 * active / (deleted + active + purchased)) as active,\r\n  (100 * purchased / (deleted + active + purchased)) as purchased\r\nFROM (\r\n  SELECT \r\n    datelocal,\r\n    (SELECT SUM(deletes) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as deleted,\r\n    (SELECT SUM(adds) - SUM(deletes) - SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as active, \r\n    (SELECT SUM(purchases_and_activations) FROM steam_wishlists b WHERE b.datelocal <= steam_wishlists.datelocal AND b.game = steam_wishlists.game) as purchased\r\n  FROM steam_wishlists \r\n  WHERE game = '$games' AND\r\n    $__timeFilter(datelocal)\r\n) a\r\nWHERE (deleted + active + purchased) > 0",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1780,6 +1757,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
@@ -1890,7 +1868,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1988,6 +1966,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
@@ -2098,7 +2077,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2196,6 +2175,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
@@ -2353,7 +2333,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2517,6 +2497,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "fillOpacity": 50,
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2525,9 +2506,11 @@
             "lineStyle": {
               "fill": "solid"
             },
+            "pointShape": "circle",
             "pointSize": {
               "fixed": 1
             },
+            "pointStrokeWidth": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -2586,42 +2569,81 @@
       },
       "id": 24,
       "options": {
-        "dims": {
-          "frame": 0
-        },
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
+        "mapping": "manual",
         "series": [
           {
-            "name": "Alchemistry",
-            "pointColor": {},
-            "x": "day Alchemistry",
-            "y": "value Alchemistry"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 0
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Alchemistry"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Alchemistry"
+              }
+            }
           },
           {
-            "name": "Extortion",
-            "pointColor": {},
-            "x": "day Extortion",
-            "y": "value Extortion"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 1
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Extortion"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Extortion"
+              }
+            }
           },
           {
-            "name": "Manufactur'inc",
-            "pointColor": {},
-            "x": "day Manufactur’ inc.",
-            "y": "value Manufactur’ inc."
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 2
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Manufactur’ inc."
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Manufactur’ inc."
+              }
+            }
           }
         ],
-        "seriesMapping": "manual",
         "tooltip": {
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2728,6 +2750,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "fillOpacity": 50,
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2736,9 +2759,11 @@
             "lineStyle": {
               "fill": "solid"
             },
+            "pointShape": "circle",
             "pointSize": {
               "fixed": 1
             },
+            "pointStrokeWidth": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -2797,42 +2822,81 @@
       },
       "id": 35,
       "options": {
-        "dims": {
-          "frame": 0
-        },
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
+        "mapping": "manual",
         "series": [
           {
-            "name": "Alchemistry",
-            "pointColor": {},
-            "x": "day Alchemistry",
-            "y": "value Alchemistry"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 0
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Alchemistry"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Alchemistry"
+              }
+            }
           },
           {
-            "name": "Extortion",
-            "pointColor": {},
-            "x": "day Extortion",
-            "y": "value Extortion"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 1
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Extortion"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Extortion"
+              }
+            }
           },
           {
-            "name": "Manufactur'inc",
-            "pointColor": {},
-            "x": "day Manufactur’ inc.",
-            "y": "value Manufactur’ inc."
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 2
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Manufactur’ inc."
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Manufactur’ inc."
+              }
+            }
           }
         ],
-        "seriesMapping": "manual",
         "tooltip": {
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2939,6 +3003,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "fillOpacity": 50,
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2947,9 +3012,11 @@
             "lineStyle": {
               "fill": "solid"
             },
+            "pointShape": "circle",
             "pointSize": {
               "fixed": 1
             },
+            "pointStrokeWidth": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -3008,42 +3075,81 @@
       },
       "id": 29,
       "options": {
-        "dims": {
-          "frame": 0
-        },
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
+        "mapping": "manual",
         "series": [
           {
-            "name": "Alchemistry",
-            "pointColor": {},
-            "x": "day Alchemistry",
-            "y": "value Alchemistry"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 0
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Alchemistry"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Alchemistry"
+              }
+            }
           },
           {
-            "name": "Extortion",
-            "pointColor": {},
-            "x": "day Extortion",
-            "y": "value Extortion"
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 1
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Extortion"
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Extortion"
+              }
+            }
           },
           {
-            "name": "Manufactur'inc",
-            "pointColor": {},
-            "x": "day Manufactur’ inc.",
-            "y": "value Manufactur’ inc."
+            "frame": {
+              "matcher": {
+                "id": "byIndex",
+                "options": 2
+              }
+            },
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "day Manufactur’ inc."
+              }
+            },
+            "y": {
+              "matcher": {
+                "id": "byName",
+                "options": "value Manufactur’ inc."
+              }
+            }
           }
         ],
-        "seriesMapping": "manual",
         "tooltip": {
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "10.0.3",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -3165,6 +3271,7 @@
             "axisPlacement": "auto",
             "axisSoftMin": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
@@ -3228,7 +3335,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -3284,6 +3391,7 @@
             "axisPlacement": "auto",
             "axisSoftMin": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -3345,7 +3453,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.15",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -3450,6 +3558,7 @@
             "axisPlacement": "auto",
             "axisSoftMin": 0,
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -3511,7 +3620,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "9.2.15",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -3600,7 +3709,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
@@ -3611,7 +3720,6 @@
           "uid": "${DS_LUMEN}"
         },
         "definition": "SELECT DISTINCT game FROM steam_wishlists",
-        "hide": 0,
         "includeAll": false,
         "label": "Games",
         "multi": true,
@@ -3620,7 +3728,6 @@
         "query": "SELECT DISTINCT game FROM steam_wishlists",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "sort": 1,
         "type": "query"
       }
@@ -3634,6 +3741,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 13,
+  "version": 2,
   "weekStart": ""
 }

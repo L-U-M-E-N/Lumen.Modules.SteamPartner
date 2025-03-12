@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Lumen.Modules.SteamPartner": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55635;http://localhost:55638"
+    }
+  }
+}

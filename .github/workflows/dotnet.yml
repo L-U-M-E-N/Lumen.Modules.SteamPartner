@@ -1,0 +1,20 @@
+name: .NET
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: L-U-M-E-N/reusable-workflow/.github/workflows/build-module.yaml@6.0.1
+    with:
+      SONAR_KEY: lumen-module-steampartner
+      MODULE_NAME: Lumen.Modules.SteamPartner
+      RELEASE_FILES_LOCATION: Lumen.Modules.SteamPartner.Module/bin/Release/net9.0/*.dll
+      CSPROJ: Lumen.Modules.SteamPartner.Module/Lumen.Modules.SteamPartner.Module.csproj
+      RUN_TESTS: 'false'
+
+    secrets:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

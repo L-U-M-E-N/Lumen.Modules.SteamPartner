@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
+		<Version>1.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Lumen.Modules.Sdk" Version="0.5.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Lumen.Modules.SteamPartner.Business\Lumen.Modules.SteamPartner.Business.csproj" />
+		<ProjectReference Include="..\Lumen.Modules.SteamPartner.Data\Lumen.Modules.SteamPartner.Data.csproj" />
+	</ItemGroup>
+</Project>

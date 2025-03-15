@@ -9,12 +9,13 @@
 // @grant        GM.cookie
 // @grant        GM_xmlhttpRequest
 // @homepageURL  https://github.com/L-U-M-E-N/Lumen.Modules.SteamPartner
+// @connect      lumen.domain.tld
 // ==/UserScript==
 
 ////////////////
 // CONFIG
 ////////////////
-const LUMEN_SERVER_URL = 'FILLME';
+const LUMEN_SERVER_URL = 'https://lumen.domain.tld/';
 const LUMEN_SERVER_API_KEY = 'FILLME';
 
 //// Constants

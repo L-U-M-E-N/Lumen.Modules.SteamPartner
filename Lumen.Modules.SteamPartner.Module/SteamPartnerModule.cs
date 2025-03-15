@@ -12,9 +12,8 @@ namespace Lumen.Modules.SteamPartner.Module {
         public const string PLAYLIST_ID = nameof(PLAYLIST_ID);
         public const string API_KEY = nameof(API_KEY);
 
-        public override Task InitAsync(LumenModuleRunsOnFlag currentEnv) {
-            // Nothing to do
-            return Task.CompletedTask;
+        public override async Task InitAsync(LumenModuleRunsOnFlag currentEnv) {
+            await RunAsync(currentEnv);
         }
 
         public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv) {

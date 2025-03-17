@@ -42,7 +42,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             var minDateWishlists = context.WishlistActions.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
             var wishlists = await steamPartner.QueryWishlistActionsAsync((ulong)game.AppId, game.Name, minDateWishlists, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
 
-            context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists));
+            context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists && x.Game == game.Name));
             await context.SaveChangesAsync();
 
             context.WishlistActions.AddRange(wishlists);
@@ -53,7 +53,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             var minDateSales = context.PackagesSales.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
             var sales = await steamPartner.QueryPackageSalesAsync((ulong)game.PackageId!, game.Name, minDateSales, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
 
-            context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales));
+            context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales && x.Game == game.Name));
             await context.SaveChangesAsync();
 
             context.PackagesSales.AddRange(sales);

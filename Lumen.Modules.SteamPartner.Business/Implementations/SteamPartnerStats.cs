@@ -36,25 +36,28 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                     await SyncSales(cookie, game);
                 }
             }
-
-            await context.SaveChangesAsync();
-
         }
 
         private async Task SyncWishlists(string cookie, SteamGames game) {
             var minDateWishlists = context.WishlistActions.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
-            context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists));
-
             var wishlists = await steamPartner.QueryWishlistActionsAsync((ulong)game.AppId, game.Name, minDateWishlists, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
+
+            context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists));
+            await context.SaveChangesAsync();
+
             context.WishlistActions.AddRange(wishlists);
+            await context.SaveChangesAsync();
         }
 
         private async Task SyncSales(string cookie, SteamGames game) {
             var minDateSales = context.PackagesSales.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
-            context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales));
-
             var sales = await steamPartner.QueryPackageSalesAsync((ulong)game.PackageId!, game.Name, minDateSales, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
+
+            context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales));
+            await context.SaveChangesAsync();
+
             context.PackagesSales.AddRange(sales);
+            await context.SaveChangesAsync();
         }
     }
 }

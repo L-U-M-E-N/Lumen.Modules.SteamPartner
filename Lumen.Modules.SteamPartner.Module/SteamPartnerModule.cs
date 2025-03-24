@@ -13,17 +13,17 @@ namespace Lumen.Modules.SteamPartner.Module {
         public const string API_KEY = nameof(API_KEY);
 
         public override async Task InitAsync(LumenModuleRunsOnFlag currentEnv) {
-            await RunAsync(currentEnv);
+            await RunAsync(currentEnv, DateTime.UtcNow);
         }
 
-        public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv) {
+        public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv, DateTime date) {
             var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
 
             await steamPartnerStats.StoreCurrentFollowersAsync();
         }
 
-        public override bool ShouldRunNow(LumenModuleRunsOnFlag currentEnv) {
-            return currentEnv == LumenModuleRunsOnFlag.API && DateTime.UtcNow.Second == 0 && DateTime.UtcNow.Minute == 0 && DateTime.UtcNow.Hour == 6;
+        public override bool ShouldRunNow(LumenModuleRunsOnFlag currentEnv, DateTime date) {
+            return currentEnv == LumenModuleRunsOnFlag.API && date.Second == 0 && date.Minute == 0 && date.Hour == 6;
         }
 
         public override Task ShutdownAsync() {

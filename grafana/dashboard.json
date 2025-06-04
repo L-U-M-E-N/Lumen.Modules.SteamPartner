@@ -27,13 +27,13 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.5.2"
+      "version": "12.0.1"
     },
     {
       "type": "datasource",
       "id": "grafana-postgresql-datasource",
       "name": "PostgreSQL",
-      "version": "11.5.1"
+      "version": "12.0.1"
     },
     {
       "type": "panel",
@@ -119,7 +119,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Wishlists (Total)",
       "type": "text"
     },
@@ -140,7 +140,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Wishlists (Current Period)",
       "type": "text"
     },
@@ -161,7 +161,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Copies (Total)",
       "type": "text"
     },
@@ -182,7 +182,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Copies (Current Period)",
       "type": "text"
     },
@@ -203,7 +203,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Refund % (Total, Graph show trend)",
       "type": "text"
     },
@@ -224,7 +224,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "title": "Followers",
       "type": "text"
     },
@@ -250,8 +250,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -350,7 +349,7 @@
           "zoom": 0.86
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -403,8 +402,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red",
-                "value": null
+                "color": "dark-red"
               },
               {
                 "color": "rgb(237, 215, 80)",
@@ -443,7 +441,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -465,7 +463,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\",$__interval),\n  sum(\"Adds\") - sum(\"Deletes\") - SUM(\"PurchasesAndActivations\") - SUM(\"Gifts\")\nFROM steampartner.\"WishlistActions\"\nWHERE\n  \"Game\" = '$games'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\",$__interval),\n  sum(\"Adds\") - sum(\"Deletes\") - SUM(\"PurchasesAndActivations\") - SUM(\"Gifts\")\nFROM steampartner.\"WishlistActions\"\nWHERE\n  \"Game\" = $games\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -573,8 +571,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red",
-                "value": null
+                "color": "dark-red"
               },
               {
                 "color": "rgb(237, 215, 80)",
@@ -613,7 +610,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -635,7 +632,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\",$__interval),\n  sum(\"Adds\") - sum(\"Deletes\") - SUM(\"PurchasesAndActivations\") - SUM(\"Gifts\")\nFROM steampartner.\"WishlistActions\"\nWHERE\n  $__timeFilter(\"Date\") AND\n  \"Game\" = '$games'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\",$__interval),\n  sum(\"Adds\") - sum(\"Deletes\") - SUM(\"PurchasesAndActivations\") - SUM(\"Gifts\")\nFROM steampartner.\"WishlistActions\"\nWHERE\n  $__timeFilter(\"Date\") AND\n  \"Game\" = $games\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -743,8 +740,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "rgb(87, 168, 242)",
@@ -779,7 +775,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -801,7 +797,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\", $__interval),\n  sum(\"NetUnits\")\nFROM steampartner.\"PackagesSales\"\nWHERE\n   \"Game\" = '$games'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\", $__interval),\n  sum(\"NetUnits\")\nFROM steampartner.\"PackagesSales\"\nWHERE\n   \"Game\" = $games\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -909,8 +905,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "rgb(87, 168, 242)",
@@ -945,7 +940,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -967,7 +962,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\", $__interval),\n  sum(\"NetUnits\")\nFROM steampartner.\"PackagesSales\"\nWHERE\n  $__timeFilter(\"Date\") AND \n   \"Game\" = '$games'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"Date\", $__interval),\n  sum(\"NetUnits\")\nFROM steampartner.\"PackagesSales\"\nWHERE\n  $__timeFilter(\"Date\") AND \n   \"Game\" = $games\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1076,8 +1071,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "rgb(87, 168, 242)",
@@ -1112,7 +1106,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1134,7 +1128,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Date\" AS \"time\",\n  (SELECT 100.0 * SUM(\"ChargebackAndReturns\") / SUM(\"GrossUnits\") FROM steampartner.\"PackagesSales\" as subquery WHERE subquery.\"Date\" <= currquery.\"Date\" and subquery.\"Game\" = currquery.\"Game\") as \"value\"\nFROM steampartner.\"PackagesSales\" as currquery\nWHERE\n  \"Game\" = '$games'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"Date\" AS \"time\",\n  (SELECT 100.0 * SUM(\"ChargebackAndReturns\") / SUM(\"GrossUnits\") FROM steampartner.\"PackagesSales\" as subquery WHERE subquery.\"Date\" <= currquery.\"Date\" and subquery.\"Game\" = currquery.\"Game\") as \"value\"\nFROM steampartner.\"PackagesSales\" as currquery\nWHERE\n  \"Game\" = $games\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1242,8 +1236,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "rgb(87, 168, 242)",
@@ -1278,7 +1271,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "v",
       "targets": [
@@ -1300,7 +1293,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Date\" as time,\n  \"FollowerAmount\"\nFROM steampartner.\"SteamFollowers\"\nWHERE \"GameName\" = '$games'\nORDER BY 1\n  ",
+          "rawSql": "SELECT\n  \"Date\" as time,\n  \"FollowerAmount\"\nFROM steampartner.\"SteamFollowers\"\nWHERE \"GameName\" = $games\nORDER BY 1\n  ",
           "refId": "A",
           "select": [
             [
@@ -1445,8 +1438,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1525,13 +1517,14 @@
         "showValue": "auto",
         "stacking": "normal",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         },
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 100
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -1543,7 +1536,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n  \"Date\",\r\n  (SELECT SUM(\"Deletes\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as deleted,\r\n  (SELECT SUM(\"Adds\") - SUM(\"Deletes\") - SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as active, \r\n  (SELECT SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as purchased\r\nFROM steampartner.\"WishlistActions\" \r\nWHERE \"Game\" = '$games' AND\r\n  $__timeFilter(\"Date\")",
+          "rawSql": "SELECT \r\n  \"Date\",\r\n  (SELECT SUM(\"Deletes\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as deleted,\r\n  (SELECT SUM(\"Adds\") - SUM(\"Deletes\") - SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as active, \r\n  (SELECT SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as purchased\r\nFROM steampartner.\"WishlistActions\" \r\nWHERE \"Game\" = $games AND\r\n  $__timeFilter(\"Date\")",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1604,8 +1597,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1684,13 +1676,14 @@
         "showValue": "auto",
         "stacking": "percent",
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         },
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 100
       },
-      "pluginVersion": "11.3.0",
+      "pluginVersion": "12.0.1",
       "repeat": "games",
       "repeatDirection": "h",
       "targets": [
@@ -1702,7 +1695,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n  \"Date\",\r\n  (100 * deleted / (deleted + active + purchased)) as deleted,\r\n  (100 * active / (deleted + active + purchased)) as active,\r\n  (100 * purchased / (deleted + active + purchased)) as purchased\r\nFROM (\r\n  SELECT \r\n    \"Date\",\r\n    (SELECT SUM(\"Deletes\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as deleted,\r\n    (SELECT SUM(\"Adds\") - SUM(\"Deletes\") - SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as active, \r\n    (SELECT SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as purchased\r\n  FROM steampartner.\"WishlistActions\" \r\n  WHERE \"Game\" = '$games' AND\r\n    $__timeFilter(\"Date\")\r\n) a\r\nWHERE (deleted + active + purchased) > 0",
+          "rawSql": "SELECT \r\n  \"Date\",\r\n  (100 * deleted / (deleted + active + purchased)) as deleted,\r\n  (100 * active / (deleted + active + purchased)) as active,\r\n  (100 * purchased / (deleted + active + purchased)) as purchased\r\nFROM (\r\n  SELECT \r\n    \"Date\",\r\n    (SELECT SUM(\"Deletes\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as deleted,\r\n    (SELECT SUM(\"Adds\") - SUM(\"Deletes\") - SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as active, \r\n    (SELECT SUM(\"PurchasesAndActivations\") FROM steampartner.\"WishlistActions\" b WHERE b.\"Date\" <= steampartner.\"WishlistActions\".\"Date\" AND b.\"Game\" = steampartner.\"WishlistActions\".\"Game\") as purchased\r\n  FROM steampartner.\"WishlistActions\" \r\n  WHERE \"Game\" = $games AND\r\n    $__timeFilter(\"Date\")\r\n) a\r\nWHERE (deleted + active + purchased) > 0",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1790,8 +1783,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1869,7 +1861,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -2000,8 +1992,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2079,7 +2070,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -2212,8 +2203,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2336,7 +2326,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -2526,8 +2516,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2647,7 +2636,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -2780,8 +2769,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2901,7 +2889,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -3034,8 +3022,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3155,7 +3142,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -3309,8 +3296,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3342,7 +3328,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -3429,8 +3415,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3461,7 +3446,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -3615,8 +3600,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3647,7 +3631,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.5.2",
+      "pluginVersion": "12.0.1",
       "targets": [
         {
           "datasource": {
@@ -3754,7 +3738,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 40,
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
@@ -3786,6 +3770,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 25,
+  "version": 4,
   "weekStart": ""
 }

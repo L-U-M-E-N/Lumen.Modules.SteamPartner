@@ -290,7 +290,7 @@
                 "color": {
                   "fixed": "dark-green"
                 },
-                "opacity": 0.2,
+                "opacity": 1,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -308,7 +308,8 @@
                   "mode": "fixed"
                 },
                 "symbolAlign": {
-                  "horizontal": "center"
+                  "horizontal": "center",
+                  "vertical": "center"
                 },
                 "text": {
                   "field": "count",
@@ -3770,6 +3771,6 @@
   "timezone": "",
   "title": "Steam summary",
   "uid": "iqXsNB1nk",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }

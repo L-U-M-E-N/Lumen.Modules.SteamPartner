@@ -36,4 +36,10 @@ GM.xmlHttpRequest({
     "Content-Type": "application/json",
     [LUMEN_SERVER_AUTH_HEADER_NAME]: LUMEN_SERVER_API_KEY
   },
-}).then(o => console.log(o)).catch(e => console.error(e));
+}).then((res) => {
+    console.log(res);
+    if(res.status === 202) {
+        alert('Steam cookie has been submitted to LUMEN server and data has been updated.');
+    }
+}).catch(e => console.error(e));
+

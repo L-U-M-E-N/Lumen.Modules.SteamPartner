@@ -1,4 +1,4 @@
-﻿using Dysnomia.Common.SteamWebAPI;
+using Dysnomia.Common.SteamWebAPI;
 
 using Lumen.Modules.Sdk;
 using Lumen.Modules.SteamPartner.Business.Implementations;
@@ -13,11 +13,15 @@ namespace Lumen.Modules.SteamPartner.Module {
 			await RunAsync(currentEnv, DateTime.UtcNow);
 		}
 
-		public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv, DateTime date) {
-			var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
+        public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv, DateTime date) {
+            try {
+                var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
 
-			await steamPartnerStats.StoreCurrentFollowersAsync();
-		}
+                await steamPartnerStats.StoreCurrentFollowersAsync();
+            } catch (Exception ex) {
+                logger.LogError(ex, "Error when updating steam followers");
+            }
+        }
 
 		public override bool ShouldRunNow(LumenModuleRunsOnFlag currentEnv, DateTime date) {
 			return currentEnv == LumenModuleRunsOnFlag.API && date.Second == 0 && date.Minute == 0 && date.Hour == 6;

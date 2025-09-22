@@ -11,6 +11,10 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             var currDate = DateOnly.FromDateTime(DateTime.UtcNow);
 
             foreach (var game in gamesList) {
+                if (!game.QueryFollowers) {
+                    continue;
+                }
+
                 if (!context.SteamFollowers.Any(x => x.Date == currDate && x.GameName == game.Name)) {
                     var followersAmount = await steamCommunity.GetAppGroupMemberListAsync((ulong)game.AppId, 1);
                     context.SteamFollowers.Add(new Common.Models.SteamFollower {

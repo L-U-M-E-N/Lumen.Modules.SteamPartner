@@ -43,7 +43,10 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
         }
 
         private async Task SyncWishlists(string cookie, SteamGames game) {
-            var minDateWishlists = context.WishlistActions.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
+            var minDateWishlists = new DateOnly(2000, 04, 04);
+            if (context.WishlistActions.Any(x => x.Game == game.Name)) {
+                minDateWishlists = context.WishlistActions.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
+            }
             var wishlists = await steamPartner.QueryWishlistActionsAsync((ulong)game.AppId, game.Name, minDateWishlists, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
 
             context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists && x.Game == game.Name));
@@ -54,7 +57,10 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
         }
 
         private async Task SyncSales(string cookie, SteamGames game) {
-            var minDateSales = context.PackagesSales.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
+            var minDateSales = new DateOnly(2000, 04, 04);
+            if (context.PackagesSales.Any(x => x.Game == game.Name)) {
+                minDateSales = context.PackagesSales.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
+            }
             var sales = await steamPartner.QueryPackageSalesAsync((ulong)game.PackageId!, game.Name, minDateSales, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
 
             context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales && x.Game == game.Name));

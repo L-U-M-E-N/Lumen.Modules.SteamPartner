@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Lumen.Modules.Sdk" Version="0.6.3" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>

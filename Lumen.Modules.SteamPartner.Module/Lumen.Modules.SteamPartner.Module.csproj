@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Lumen.Modules.Sdk" Version="1.0.0" />
+		<PackageReference Include="Lumen.Modules.Sdk" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

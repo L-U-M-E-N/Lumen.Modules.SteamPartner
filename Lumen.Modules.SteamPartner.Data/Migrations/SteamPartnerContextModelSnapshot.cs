@@ -18,7 +18,7 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("steampartner")
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "10.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -161,6 +161,47 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
                     b.HasKey("AppId");
 
                     b.ToTable("SteamGames", "steampartner");
+                });
+
+            modelBuilder.Entity("Lumen.Modules.SteamPartner.Common.Models.SteamReview", b =>
+                {
+                    b.Property<string>("RecommendationId")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("AppId")
+                        .HasColumnType("numeric(20,0)");
+
+                    b.Property<string>("AuthorSteamId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Positive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RecievedForFree")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Refunded")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ReviewCreation")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ReviewUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("SteamPurchase")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("RecommendationId");
+
+                    b.HasIndex("AppId");
+
+                    b.ToTable("SteamReviews", "steampartner");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,11 +1,12 @@
 ﻿using Dysnomia.Common.SteamWebAPI;
+using Dysnomia.Common.SteamWebAPI.Models;
 
 using Lumen.Modules.SteamPartner.Business.Interfaces;
 using Lumen.Modules.SteamPartner.Common.Models;
 using Lumen.Modules.SteamPartner.Data;
 
 namespace Lumen.Modules.SteamPartner.Business.Implementations {
-    public class SteamPartnerStats(SteamPartnerContext context, ISteamCommunity steamCommunity, ISteamPartner steamPartner) : ISteamPartnerStats {
+    public class SteamPartnerStats(SteamPartnerContext context, ISteamCommunity steamCommunity, ISteamPartner steamPartner, IUserReviewsService userReviewsService) : ISteamPartnerStats {
         public async Task StoreCurrentFollowersAsync() {
             var gamesList = context.SteamGames.ToList();
             var currDate = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -21,6 +22,61 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         Date = currDate,
                         GameName = game.Name,
                         FollowerAmount = (int)followersAmount.groupDetails.memberCount,
+                    });
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+        public async Task StoreCurrentReviewsAsync(string API_KEY) {
+            var gamesList = context.SteamGames.ToList();
+
+            foreach (var game in gamesList) {
+                List<Review> reviews = [];
+
+                string? cursor = null;
+                while (true) {
+                    var response = await userReviewsService.GetAppReviews(
+                            API_KEY,
+                            (ulong)game.AppId,
+                            filter: Dysnomia.Common.SteamWebAPI.Enums.EUserReviewsAppReviewsFilter.k_EUserReviewsAppReviewsFilter_Recent,
+                            languages: "languages[0]=all",
+                            review_type: Dysnomia.Common.SteamWebAPI.Enums.EUserReviewsReviewType.k_EUserReviewsReviewType_All,
+                            purchase_type: Dysnomia.Common.SteamWebAPI.Enums.EUserReviewsPurchaseType.k_EUserReviewsPurchaseType_All,
+                            cursor: cursor
+                    );
+
+                    if (response.response.total_matching == 0 || response.response.query_summary?.num_reviews == 0 || response.response.reviews is null) {
+                        break;
+                    }
+
+                    cursor = response.response.cursor;
+                    reviews.AddRange(response.response.reviews);
+                }
+
+                foreach (var review in reviews) {
+                    var found = context.SteamReviews.FirstOrDefault(x => x.RecommendationId == review.recommendationid);
+                    if (found is not null) {
+                        found.ReviewUpdate = DateTime.UnixEpoch.AddSeconds(review.timestamp_updated);
+                        found.Positive = review.voted_up;
+                        found.SteamPurchase = review.steam_purchase;
+                        found.RecievedForFree = review.received_for_free;
+                        found.Refunded = review.refunded;
+                        found.Language = review.language;
+                        continue;
+                    }
+
+                    context.SteamReviews.Add(new Common.Models.SteamReview {
+                        RecommendationId = review.recommendationid,
+                        AppId = (ulong)game.AppId,
+                        AuthorSteamId = review.author.steamid,
+                        ReviewCreation = DateTime.UnixEpoch.AddSeconds(review.timestamp_created),
+                        ReviewUpdate = DateTime.UnixEpoch.AddSeconds(review.timestamp_updated),
+                        Positive = review.voted_up,
+                        SteamPurchase = review.steam_purchase,
+                        RecievedForFree = review.received_for_free,
+                        Refunded = review.refunded,
+                        Language = review.language,
                     });
                 }
             }

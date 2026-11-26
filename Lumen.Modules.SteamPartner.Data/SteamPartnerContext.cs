@@ -12,6 +12,7 @@ namespace Lumen.Modules.SteamPartner.Data {
         }
 
         public DbSet<SteamFollower> SteamFollowers { get; set; } = null!;
+        public DbSet<SteamReview> SteamReviews { get; set; } = null!;
         public DbSet<SteamGames> SteamGames { get; set; } = null!;
         public DbSet<PackageSales> PackagesSales { get; set; } = null!;
         public DbSet<WishlistActions> WishlistActions { get; set; } = null!;
@@ -33,6 +34,10 @@ namespace Lumen.Modules.SteamPartner.Data {
 
             var packageSalesModelBuilder = modelBuilder.Entity<PackageSales>();
             packageSalesModelBuilder.HasKey(x => new { x.Date, x.BundleId, x.ProductId, x.Type, x.Platform, x.CountryCode, x.SalePrice });
+
+            var steamReviewsModelBuilder = modelBuilder.Entity<SteamReview>();
+            steamReviewsModelBuilder.HasKey(x => x.RecommendationId);
+            steamReviewsModelBuilder.HasIndex(x => x.AppId);
         }
     }
 }

@@ -152,8 +152,14 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
                     b.Property<int?>("PackageId")
                         .HasColumnType("integer");
 
+                    b.Property<DateOnly?>("PublicStorePage")
+                        .HasColumnType("date");
+
                     b.Property<bool>("QueryFollowers")
                         .HasColumnType("boolean");
+
+                    b.Property<DateOnly?>("ReleaseDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("SteamRunAs")
                         .HasColumnType("integer");

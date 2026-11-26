@@ -38,10 +38,11 @@ namespace Lumen.Modules.SteamPartner.Module {
                 var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
 
                 await steamPartnerStats.StoreCurrentFollowersAsync();
-                await steamPartnerStats.StoreCurrentReviewsAsync(GetPublisherApiKey());
-                await steamPartnerStats.StoreCurrentWishlistsAsync(GetPublisherFinancialApiKey());
+                await steamPartnerStats.StoreReviewsAsync(GetPublisherApiKey());
+                await steamPartnerStats.StoreWishlistsAsync(GetPublisherFinancialApiKey());
+                await steamPartnerStats.StorePackageSalesAsync(GetPublisherFinancialApiKey());
             } catch (Exception ex) {
-                logger.LogError(ex, "Error when updating steam followers");
+                logger.LogError(ex, "Error when updating steam data");
             }
         }
 

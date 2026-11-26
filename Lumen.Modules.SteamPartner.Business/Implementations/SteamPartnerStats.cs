@@ -5,8 +5,12 @@ using Lumen.Modules.SteamPartner.Business.Interfaces;
 using Lumen.Modules.SteamPartner.Common.Models;
 using Lumen.Modules.SteamPartner.Data;
 
+using System.Globalization;
+
 namespace Lumen.Modules.SteamPartner.Business.Implementations {
     public class SteamPartnerStats(SteamPartnerContext context, ISteamCommunity steamCommunity, ISteamPartner steamPartner, IPartnerFinancialsService partnerFinancialsService, IUserReviewsService userReviewsService) : ISteamPartnerStats {
+        private static readonly NumberFormatInfo numberFormatInfo = new() { NumberDecimalSeparator = "." };
+
         public async Task StoreCurrentFollowersAsync() {
             var gamesList = context.SteamGames.ToList();
             var currDate = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -29,7 +33,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             await context.SaveChangesAsync();
         }
 
-        public async Task StoreCurrentReviewsAsync(string API_KEY) {
+        public async Task StoreReviewsAsync(string API_KEY) {
             var gamesList = context.SteamGames.ToList();
 
             foreach (var game in gamesList) {
@@ -84,7 +88,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
 
             await context.SaveChangesAsync();
         }
-        public async Task StoreCurrentWishlistsAsync(string API_KEY) {
+        public async Task StoreWishlistsAsync(string API_KEY) {
             var gamesList = context.SteamGames.ToList();
 
             foreach (var game in gamesList) {
@@ -96,12 +100,11 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
 
                 var now = DateOnly.FromDateTime(DateTime.UtcNow);
                 while (currentDate <= now) {
-                    context.SteamWishlists.RemoveRange(context.SteamWishlists.Where(x => x.AppId == appId && x.Date == currentDate));
-
                     var dayWishlists = await partnerFinancialsService.GetAppWishlistReporting(API_KEY, appId, currentDate);
                     if (dayWishlists.response.app_min_date is null) {
                         break; // No wishlists at all
                     }
+
 
                     if (dayWishlists.response.wishlist_summary is null) {
                         var minDate = DateOnly.ParseExact(dayWishlists.response.app_min_date, "yyyy-MM-dd");
@@ -113,6 +116,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         continue;
                     }
 
+                    context.SteamWishlists.RemoveRange(context.SteamWishlists.Where(x => x.AppId == appId && x.Date == currentDate));
                     context.SteamWishlists.Add(GenerateWishlistEntry(appId, currentDate, null, null, null, null, dayWishlists.response.wishlist_summary));
 
                     foreach (var country in dayWishlists.response.country_summary!) {
@@ -147,31 +151,66 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             };
         }
 
-        public async Task QuerySaleAndWishlistDataAsync(string steamLoginSecureToken) {
-            var gamesList = context.SteamGames.ToList();
+        public async Task StorePackageSalesAsync(string API_KEY) {
+            var currentDate = new DateOnly(2000, 1, 1);
+            if (context.SteamPackageSales.Any()) {
+                currentDate = context.SteamPackageSales.Max(x => x.Date).AddDays(-35);
+            }
 
-            foreach (var game in gamesList) {
-                if (game is null) { continue; }
+            var now = DateOnly.FromDateTime(DateTime.UtcNow);
+            while (currentDate <= now) {
+                ulong highwatermark_id = 0;
+                while (true) {
+                    var daySales = await partnerFinancialsService.GetDetailedSales(API_KEY, currentDate, highwatermark_id);
+                    if (daySales.response.max_id is null) {
+                        break; // No sales or final page
+                    }
+                    var maxId = ulong.Parse(daySales.response.max_id);
+                    if (maxId == highwatermark_id) {
+                        break; // No sales or final page
+                    }
 
-                var cookie = $"steamLoginSecure={steamLoginSecureToken}; steamworksRunas={game.SteamRunAs};";
-                if (game.PackageId is not null) {
-                    await SyncSales(cookie, game);
+                    if (highwatermark_id == 0) {
+                        context.SteamPackageSales.RemoveRange(context.SteamPackageSales.Where(x => x.Date == currentDate));
+                    }
+
+                    context.SteamPackageSales.AddRange(daySales.response.results!.Select((res) => {
+                        var country = daySales.response.country_info!.First(x => x.country_code == res.country_code);
+                        return new SteamPackageSale {
+                            PackageId = res.packageid,
+                            BundleId = res.bundleid,
+                            AppId = res.primary_appid,
+                            Date = currentDate,
+                            PackageSaleType = res.package_sale_type,
+                            Platform = res.platform,
+                            CountryCode = res.country_code,
+                            CountryName = country.country_name,
+                            CountryRegion = country.region,
+                            BasePrice = res.base_price == null ? null : decimal.Parse(res.base_price, numberFormatInfo),
+                            SalePrice = res.sale_price == null ? null : decimal.Parse(res.sale_price, numberFormatInfo),
+                            Currency = res.currency,
+                            GrossUnitsActivated = res.gross_units_activated,
+                            GrossUnitsSold = res.gross_units_sold,
+                            GrossUnitsReturned = res.gross_units_returned,
+                            NetUnitsSold = res.net_units_sold,
+                            GrossSalesUsd = res.gross_sales_usd == null ? null : decimal.Parse(res.gross_sales_usd, numberFormatInfo),
+                            GrossReturnsUsd = res.gross_returns_usd == null ? null : decimal.Parse(res.gross_returns_usd, numberFormatInfo),
+                            NetTaxUsd = res.net_tax_usd == null ? null : decimal.Parse(res.net_tax_usd, numberFormatInfo),
+                            NetSalesUsd = res.net_sales_usd == null ? null : decimal.Parse(res.net_sales_usd, numberFormatInfo),
+                            AdditionalRevenueShareTier = res.additional_revenue_share_tier,
+                            CombinedDiscountId = res.combined_discount_id,
+                            AvgSalePriceUsd = res.avg_sale_price_usd == null ? null : decimal.Parse(res.avg_sale_price_usd, numberFormatInfo),
+                            KeyRequestId = res.key_request_id,
+                        };
+                    }));
+
+                    highwatermark_id = maxId;
                 }
+
+                currentDate = currentDate.AddDays(1);
+
+                await context.SaveChangesAsync();
             }
-        }
-
-        private async Task SyncSales(string cookie, SteamGames game) {
-            var minDateSales = new DateOnly(2000, 04, 04);
-            if (context.PackagesSales.Any(x => x.Game == game.Name)) {
-                minDateSales = context.PackagesSales.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
-            }
-            var sales = await steamPartner.QueryPackageSalesAsync((ulong)game.PackageId!, game.Name, minDateSales, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
-
-            context.PackagesSales.RemoveRange(context.PackagesSales.Where(x => x.Date >= minDateSales && x.Game == game.Name));
-            await context.SaveChangesAsync();
-
-            context.PackagesSales.AddRange(sales);
-            await context.SaveChangesAsync();
         }
     }
 }

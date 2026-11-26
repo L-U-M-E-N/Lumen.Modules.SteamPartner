@@ -169,6 +169,92 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
                     b.ToTable("SteamGames", "steampartner");
                 });
 
+            modelBuilder.Entity("Lumen.Modules.SteamPartner.Common.Models.SteamPackageSale", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("AdditionalRevenueShareTier")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("AppId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("AvgSalePriceUsd")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("BasePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<long?>("BundleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("CombinedDiscountId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CountryRegion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<decimal?>("GrossReturnsUsd")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("GrossSalesUsd")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("GrossUnitsActivated")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GrossUnitsReturned")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GrossUnitsSold")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("KeyRequestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("NetSalesUsd")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("NetTaxUsd")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("NetUnitsSold")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("PackageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PackageSaleType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Platform")
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("SalePrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SteamPackageSales", "steampartner");
+                });
+
             modelBuilder.Entity("Lumen.Modules.SteamPartner.Common.Models.SteamReview", b =>
                 {
                     b.Property<string>("RecommendationId")

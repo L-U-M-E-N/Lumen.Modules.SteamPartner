@@ -10,14 +10,24 @@ using Microsoft.EntityFrameworkCore;
 namespace Lumen.Modules.SteamPartner.Module {
     public class SteamPartnerModule(IEnumerable<ConfigEntry> configEntries, ILogger<LumenModuleBase> logger, IServiceProvider provider) : LumenModuleBase(configEntries, logger, provider) {
         public const string STEAM_PUBLISHER_API_KEY = nameof(STEAM_PUBLISHER_API_KEY);
+        public const string STEAM_FINANCIAL_API_KEY = nameof(STEAM_FINANCIAL_API_KEY);
 
         public override async Task InitAsync(LumenModuleRunsOnFlag currentEnv) {
             await RunAsync(currentEnv, DateTime.UtcNow);
         }
+
         private string GetPublisherApiKey() {
             var configEntry = configEntries.FirstOrDefault(x => x.ConfigKey == STEAM_PUBLISHER_API_KEY);
             if (configEntry is null || configEntry.ConfigValue is null) {
                 logger.LogError($"[{nameof(STEAM_PUBLISHER_API_KEY)}] Config key \"{STEAM_PUBLISHER_API_KEY}\" is missing!");
+            }
+
+            return configEntry.ConfigValue;
+        }
+        private string GetPublisherFinancialApiKey() {
+            var configEntry = configEntries.FirstOrDefault(x => x.ConfigKey == STEAM_FINANCIAL_API_KEY);
+            if (configEntry is null || configEntry.ConfigValue is null) {
+                logger.LogError($"[{nameof(STEAM_FINANCIAL_API_KEY)}] Config key \"{STEAM_FINANCIAL_API_KEY}\" is missing!");
             }
 
             return configEntry.ConfigValue;
@@ -29,6 +39,7 @@ namespace Lumen.Modules.SteamPartner.Module {
 
                 await steamPartnerStats.StoreCurrentFollowersAsync();
                 await steamPartnerStats.StoreCurrentReviewsAsync(GetPublisherApiKey());
+                await steamPartnerStats.StoreCurrentWishlistsAsync(GetPublisherFinancialApiKey());
             } catch (Exception ex) {
                 logger.LogError(ex, "Error when updating steam followers");
             }
@@ -49,6 +60,7 @@ namespace Lumen.Modules.SteamPartner.Module {
                 serviceCollection.AddTransient<ISteamPartnerStats, SteamPartnerStats>();
                 serviceCollection.AddTransient<ISteamCommunity, SteamCommunity>();
                 serviceCollection.AddTransient<ISteamPartner, Dysnomia.Common.SteamWebAPI.SteamPartner>();
+                serviceCollection.AddTransient<IPartnerFinancialsService, PartnerFinancialsService>();
                 serviceCollection.AddTransient<IUserReviewsService, UserReviewsService>();
                 serviceCollection.AddHttpClient();
             }

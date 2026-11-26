@@ -6,7 +6,7 @@ using Lumen.Modules.SteamPartner.Common.Models;
 using Lumen.Modules.SteamPartner.Data;
 
 namespace Lumen.Modules.SteamPartner.Business.Implementations {
-    public class SteamPartnerStats(SteamPartnerContext context, ISteamCommunity steamCommunity, ISteamPartner steamPartner, IUserReviewsService userReviewsService) : ISteamPartnerStats {
+    public class SteamPartnerStats(SteamPartnerContext context, ISteamCommunity steamCommunity, ISteamPartner steamPartner, IPartnerFinancialsService partnerFinancialsService, IUserReviewsService userReviewsService) : ISteamPartnerStats {
         public async Task StoreCurrentFollowersAsync() {
             var gamesList = context.SteamGames.ToList();
             var currDate = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -28,6 +28,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
 
             await context.SaveChangesAsync();
         }
+
         public async Task StoreCurrentReviewsAsync(string API_KEY) {
             var gamesList = context.SteamGames.ToList();
 
@@ -83,6 +84,68 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
 
             await context.SaveChangesAsync();
         }
+        public async Task StoreCurrentWishlistsAsync(string API_KEY) {
+            var gamesList = context.SteamGames.ToList();
+
+            foreach (var game in gamesList) {
+                var appId = (ulong)game.AppId;
+                var currentDate = new DateOnly(2000, 04, 04);
+                if (context.SteamWishlists.Any(x => x.AppId == appId)) {
+                    currentDate = context.SteamWishlists.Where(x => x.AppId == appId).Max(x => x.Date).AddDays(-35);
+                }
+
+                var now = DateOnly.FromDateTime(DateTime.UtcNow);
+                while (currentDate <= now) {
+                    context.SteamWishlists.RemoveRange(context.SteamWishlists.Where(x => x.AppId == appId && x.Date == currentDate));
+
+                    var dayWishlists = await partnerFinancialsService.GetAppWishlistReporting(API_KEY, appId, currentDate);
+                    if (dayWishlists.response.app_min_date is null) {
+                        break; // No wishlists at all
+                    }
+
+                    if (dayWishlists.response.wishlist_summary is null) {
+                        var minDate = DateOnly.ParseExact(dayWishlists.response.app_min_date, "yyyy-MM-dd");
+                        if (minDate > currentDate) {
+                            currentDate = minDate;
+                        } else {
+                            currentDate = currentDate.AddDays(1);
+                        }
+                        continue;
+                    }
+
+                    context.SteamWishlists.Add(GenerateWishlistEntry(appId, currentDate, null, null, null, null, dayWishlists.response.wishlist_summary));
+
+                    foreach (var country in dayWishlists.response.country_summary!) {
+                        context.SteamWishlists.Add(GenerateWishlistEntry(appId, currentDate, country.country_code, country.country_name, country.region, null, country.summary_actions));
+                    }
+
+                    foreach (var language in dayWishlists.response.language_summary!) {
+                        context.SteamWishlists.Add(GenerateWishlistEntry(appId, currentDate, null, null, null, language.language_name, language.summary_actions));
+                    }
+
+                    currentDate = currentDate.AddDays(1);
+                }
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public static SteamWishlist GenerateWishlistEntry(ulong appId, DateOnly date, string? countryCode, string? countryName, string? countryRegion, string? language, Wishlist_Summary summary) {
+            return new SteamWishlist {
+                AppId = appId,
+                Date = date,
+                CountryCode = countryCode,
+                CountryName = countryName,
+                CountryRegion = countryRegion,
+                Language = language,
+                WishlistsAdditions = summary.wishlist_adds,
+                WishlistDeletions = summary.wishlist_deletes,
+                WishlistsGifts = summary.wishlist_gifts,
+                WishlistsPurchases = summary.wishlist_purchases,
+                WishlistsAdditionsWindows = summary.wishlist_adds_windows,
+                WishlistsAdditionsMac = summary.wishlist_adds_mac,
+                WishlistsAdditionsLinux = summary.wishlist_adds_linux,
+            };
+        }
 
         public async Task QuerySaleAndWishlistDataAsync(string steamLoginSecureToken) {
             var gamesList = context.SteamGames.ToList();
@@ -91,25 +154,10 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                 if (game is null) { continue; }
 
                 var cookie = $"steamLoginSecure={steamLoginSecureToken}; steamworksRunas={game.SteamRunAs};";
-                await SyncWishlists(cookie, game);
                 if (game.PackageId is not null) {
                     await SyncSales(cookie, game);
                 }
             }
-        }
-
-        private async Task SyncWishlists(string cookie, SteamGames game) {
-            var minDateWishlists = new DateOnly(2000, 04, 04);
-            if (context.WishlistActions.Any(x => x.Game == game.Name)) {
-                minDateWishlists = context.WishlistActions.Where(x => x.Game == game.Name).Max(x => x.Date).AddDays(-35);
-            }
-            var wishlists = await steamPartner.QueryWishlistActionsAsync((ulong)game.AppId, game.Name, minDateWishlists, DateOnly.FromDateTime(DateTime.UtcNow), cookie);
-
-            context.WishlistActions.RemoveRange(context.WishlistActions.Where(x => x.Date >= minDateWishlists && x.Game == game.Name));
-            await context.SaveChangesAsync();
-
-            context.WishlistActions.AddRange(wishlists);
-            await context.SaveChangesAsync();
         }
 
         private async Task SyncSales(string cookie, SteamGames game) {

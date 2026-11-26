@@ -203,6 +203,59 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
 
                     b.ToTable("SteamReviews", "steampartner");
                 });
+
+            modelBuilder.Entity("Lumen.Modules.SteamPartner.Common.Models.SteamWishlist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("AppId")
+                        .HasColumnType("numeric(20,0)");
+
+                    b.Property<string>("CountryCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CountryName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CountryRegion")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text");
+
+                    b.Property<long>("WishlistDeletions")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsAdditions")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsAdditionsLinux")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsAdditionsMac")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsAdditionsWindows")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsGifts")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WishlistsPurchases")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppId", "Date", "CountryCode", "Language")
+                        .IsUnique();
+
+                    b.ToTable("SteamWishlists", "steampartner");
+                });
 #pragma warning restore 612, 618
         }
     }

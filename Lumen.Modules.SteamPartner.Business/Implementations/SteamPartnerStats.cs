@@ -237,6 +237,10 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             }
 
             foreach (var combinedDiscount in response.response.combined_discount_info) {
+                if (!response.response.results!.Any((x) => x.combined_discount_id == combinedDiscount.combined_discount_id && x.gross_units_sold > 0)) {
+                    continue; // Ignore returns
+                }
+
                 var item = context.SteamEvents.FirstOrDefault((x) => x.CombinedDiscountId == combinedDiscount.combined_discount_id);
                 if (item is not null) {
                     if (item.Start > currentDate) {

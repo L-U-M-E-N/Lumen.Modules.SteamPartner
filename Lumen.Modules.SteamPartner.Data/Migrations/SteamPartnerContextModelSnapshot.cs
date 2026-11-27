@@ -16,7 +16,7 @@ partial class SteamPartnerContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261127104430_SteamEventsPt2";
+    public override string LastMigrationId => "20261127170838_RemoveWrongUniqueIndex";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -405,8 +405,7 @@ partial class SteamPartnerContextModelSnapshot : ModelSnapshot
 
                         b1.HasKey("DiscountId");
 
-                        b1.HasIndex("AppId")
-                            .IsUnique();
+                        b1.HasIndex("AppId");
 
                         b1.HasIndex("SteamEventId");
 

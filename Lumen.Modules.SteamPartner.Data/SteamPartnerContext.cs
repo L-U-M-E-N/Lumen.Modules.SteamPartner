@@ -27,7 +27,7 @@ namespace Lumen.Modules.SteamPartner.Data {
             steamEventsModelBuilder.HasKey(x => new { x.Id });
             var steamEventDiscountModelBuilder = steamEventsModelBuilder.OwnsMany(x => x.Discounts);
             steamEventDiscountModelBuilder.HasKey(x => x.DiscountId);
-            steamEventDiscountModelBuilder.HasIndex(x => x.AppId).IsUnique();
+            steamEventDiscountModelBuilder.HasIndex(x => x.AppId);
 
             var steamFollowersModelBuilder = modelBuilder.Entity<SteamFollower>();
             steamFollowersModelBuilder.Property(x => x.Date)

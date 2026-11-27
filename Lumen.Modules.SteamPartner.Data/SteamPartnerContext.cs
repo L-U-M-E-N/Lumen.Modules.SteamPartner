@@ -11,6 +11,7 @@ namespace Lumen.Modules.SteamPartner.Data {
         public SteamPartnerContext(DbContextOptions<SteamPartnerContext> options) : base(options) {
         }
 
+        public DbSet<SteamEvent> SteamEvents { get; set; } = null!;
         public DbSet<SteamFollower> SteamFollowers { get; set; } = null!;
         public DbSet<SteamReview> SteamReviews { get; set; } = null!;
         public DbSet<SteamGames> SteamGames { get; set; } = null!;
@@ -22,10 +23,15 @@ namespace Lumen.Modules.SteamPartner.Data {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.HasDefaultSchema(SCHEMA_NAME);
 
+            var steamEventsModelBuilder = modelBuilder.Entity<SteamEvent>();
+            steamEventsModelBuilder.HasKey(x => new { x.Id });
+            var steamEventDiscountModelBuilder = steamEventsModelBuilder.OwnsMany(x => x.Discounts);
+            steamEventDiscountModelBuilder.HasKey(x => x.DiscountId);
+            steamEventDiscountModelBuilder.HasIndex(x => x.AppId).IsUnique();
+
             var steamFollowersModelBuilder = modelBuilder.Entity<SteamFollower>();
             steamFollowersModelBuilder.Property(x => x.Date)
                 .HasColumnType("date");
-
             steamFollowersModelBuilder.HasKey(x => new { x.Date, x.GameName });
 
             var steamGamesModelBuilder = modelBuilder.Entity<SteamGames>();

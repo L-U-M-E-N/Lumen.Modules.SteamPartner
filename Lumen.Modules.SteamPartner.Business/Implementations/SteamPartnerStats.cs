@@ -213,6 +213,8 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         };
                     }));
 
+                    await SyncDiscountsAsync(currentDate, daySales);
+
                     highwatermark_id = maxId;
                     await Task.Delay(500);
                 }
@@ -222,6 +224,49 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                 await context.SaveChangesAsync();
 
                 await Task.Delay(1000);
+            }
+        }
+
+        public async Task SyncDiscountsAsync(DateOnly currentDate, DetailedSalesResponse response) {
+            if (response.response.combined_discount_info is null) {
+                return;
+            }
+
+            foreach (var combinedDiscount in response.response.combined_discount_info) {
+                var item = context.SteamEvents.FirstOrDefault((x) => x.CombinedDiscountId == combinedDiscount.combined_discount_id);
+                if (item is not null) {
+                    if (item.Start > currentDate) {
+                        item.Start = currentDate;
+                    }
+                    if (item.End < currentDate) {
+                        item.End = currentDate;
+                    }
+                } else {
+                    item = new SteamEvent {
+                        CombinedDiscountId = (uint)combinedDiscount.combined_discount_id,
+                        Name = combinedDiscount.combined_discount_name,
+                        Start = currentDate,
+                        End = currentDate,
+                    };
+                    context.SteamEvents.Add(item);
+                }
+
+                foreach (var discountId in combinedDiscount.discount_ids) {
+                    if (item.Discounts.Any((x) => x.DiscountId == discountId)) {
+                        continue;
+                    }
+
+                    var relatedDiscount = response.response.discount_info!.First((x) => x.discountid == discountId);
+                    var relatedAppId = response.response.results!.FirstOrDefault((x) => x.combined_discount_id == combinedDiscount.combined_discount_id)?.primary_appid ?? 0;
+                    item.Discounts.Add(new SteamEventDiscount {
+                        DiscountId = (uint)discountId,
+                        AppId = relatedAppId,
+                        DiscountPercentage = (uint)relatedDiscount.discount_percentage,
+                    });
+
+                    item.Description = relatedDiscount.discount_description;
+                    item.Group = relatedDiscount.discount_group;
+                }
             }
         }
     }

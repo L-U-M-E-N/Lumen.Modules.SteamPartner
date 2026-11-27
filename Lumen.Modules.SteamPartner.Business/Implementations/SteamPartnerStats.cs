@@ -28,6 +28,8 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         FollowerAmount = (int)followersAmount.groupDetails.memberCount,
                     });
                 }
+
+                await Task.Delay(500);
             }
 
             await context.SaveChangesAsync();
@@ -84,6 +86,8 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         Language = review.language,
                     });
                 }
+
+                await Task.Delay(500);
             }
 
             await context.SaveChangesAsync();
@@ -113,6 +117,7 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                         } else {
                             currentDate = currentDate.AddDays(1);
                         }
+                        await Task.Delay(500);
                         continue;
                     }
 
@@ -128,6 +133,8 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                     }
 
                     currentDate = currentDate.AddDays(1);
+
+                    await Task.Delay(500);
                 }
             }
             await context.SaveChangesAsync();
@@ -163,10 +170,12 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                 while (true) {
                     var daySales = await partnerFinancialsService.GetDetailedSales(API_KEY, currentDate, highwatermark_id);
                     if (daySales.response.max_id is null) {
+                        await Task.Delay(500);
                         break; // No sales or final page
                     }
                     var maxId = ulong.Parse(daySales.response.max_id);
                     if (maxId == highwatermark_id) {
+                        await Task.Delay(500);
                         break; // No sales or final page
                     }
 
@@ -205,11 +214,14 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
                     }));
 
                     highwatermark_id = maxId;
+                    await Task.Delay(500);
                 }
 
                 currentDate = currentDate.AddDays(1);
 
                 await context.SaveChangesAsync();
+
+                await Task.Delay(1000);
             }
         }
     }

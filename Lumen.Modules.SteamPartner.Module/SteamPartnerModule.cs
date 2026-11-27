@@ -34,15 +34,36 @@ namespace Lumen.Modules.SteamPartner.Module {
         }
 
         public override async Task RunAsync(LumenModuleRunsOnFlag currentEnv, DateTime date) {
-            try {
-                var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
+            var steamPartnerStats = provider.GetRequiredService<ISteamPartnerStats>();
 
+            try {
                 await steamPartnerStats.StoreCurrentFollowersAsync();
+            } catch (Exception ex) {
+                logger.LogError(ex, "Error when updating steam followers data");
+            }
+
+            await Task.Delay(5000);
+
+            try {
                 await steamPartnerStats.StoreReviewsAsync(GetPublisherApiKey());
+            } catch (Exception ex) {
+                logger.LogError(ex, "Error when updating steam reviews data");
+            }
+
+            await Task.Delay(5000);
+
+            try {
                 await steamPartnerStats.StoreWishlistsAsync(GetPublisherFinancialApiKey());
+            } catch (Exception ex) {
+                logger.LogError(ex, "Error when updating steam wishlists data");
+            }
+
+            await Task.Delay(5000);
+
+            try {
                 await steamPartnerStats.StorePackageSalesAsync(GetPublisherFinancialApiKey());
             } catch (Exception ex) {
-                logger.LogError(ex, "Error when updating steam data");
+                logger.LogError(ex, "Error when updating steam sales data");
             }
         }
 

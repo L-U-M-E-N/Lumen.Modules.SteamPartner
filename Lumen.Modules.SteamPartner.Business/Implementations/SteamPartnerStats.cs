@@ -96,10 +96,14 @@ namespace Lumen.Modules.SteamPartner.Business.Implementations {
             var gamesList = context.SteamGames.ToList();
 
             foreach (var game in gamesList) {
+                if (game.Name.EndsWith(" Demo")) {
+                    continue; // Some old demo had wishlists, and this would make the process extra long for no reason
+                }
+
                 var appId = (ulong)game.AppId;
                 var currentDate = new DateOnly(2000, 04, 04);
                 if (context.SteamWishlists.Any(x => x.AppId == appId)) {
-                    currentDate = context.SteamWishlists.Where(x => x.AppId == appId).Max(x => x.Date).AddDays(-35);
+                    currentDate = context.SteamWishlists.Where(x => x.AppId == appId).Max(x => x.Date).AddDays(-3);
                 }
 
                 var now = DateOnly.FromDateTime(DateTime.UtcNow);

@@ -149,8 +149,9 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("PackageId")
-                        .HasColumnType("integer");
+                    b.PrimitiveCollection<int[]>("PackageId")
+                        .IsRequired()
+                        .HasColumnType("integer[]");
 
                     b.Property<DateOnly?>("PublicStorePage")
                         .HasColumnType("date");
@@ -160,9 +161,6 @@ namespace Lumen.Modules.SteamPartner.Data.Migrations
 
                     b.Property<DateOnly?>("ReleaseDate")
                         .HasColumnType("date");
-
-                    b.Property<int>("SteamRunAs")
-                        .HasColumnType("integer");
 
                     b.HasKey("AppId");
 
